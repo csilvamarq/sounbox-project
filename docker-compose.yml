@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+  voicebox : 
+    image : voicevox/voicevox_engine
+    ports : 
+    - 50021:50021
+  depl:
+    build: ./Translator/Dockerfile
+    volumes:
+      - ./spanish:./spanish
+  converter: 
+    build: ./VoiceBox/Dockerfile
+    volumes:
+      - ./japanese:./japanese
