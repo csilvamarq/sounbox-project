@@ -1,15 +1,24 @@
 version: '3.6'
 
 services:
-  voicebox : 
-    image : voicevox/voicevox_engine
-    ports : 
-    - 50021:50021
+  voicebox:
+    image: voicevox/voicevox_engine
+    ports:
+      - 50021:50021
   depl:
-    build: ./Translator/Dockerfile
+    build: 
+      dockerfile: ./Translator/Dockerfile
     volumes:
-      - ./spanish:./spanish
-  converter: 
-    build: ./VoiceBox/Dockerfile
+      - ./japanese:/app/japanese
+      - ./spanish:/app/spanish
+  converter:
+    build: 
+      dockerfile: ./VoiceBox/Dockerfile
     volumes:
-      - ./japanese:./japanese
+      - ./japanese:/app/japanese
+      - ./spanish:/app/spanish
+  transcriber:
+    build: 
+      dockerfile: ./Transcribe/Dockerfile
+    volumes:
+      - ./Recorder/Records:/app/Recorder/Records
