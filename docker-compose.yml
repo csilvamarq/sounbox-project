@@ -5,20 +5,20 @@ services:
     image: voicevox/voicevox_engine
     ports:
       - 50021:50021
-  depl:
-    build: 
-      dockerfile: ./Translator/Dockerfile
-    volumes:
-      - ./japanese:/app/japanese
-      - ./spanish:/app/spanish
-  converter:
-    build: 
-      dockerfile: ./VoiceBox/Dockerfile
-    volumes:
-      - ./japanese:/app/japanese
-      - ./spanish:/app/spanish
-  transcriber:
-    build: 
-      dockerfile: ./Transcribe/Dockerfile
-    volumes:
-      - ./Recorder/Records:/app/Recorder/Records
+  # depl:
+  #   build: 
+  #     dockerfile: ./Translator/Dockerfile
+  #   volumes:
+  #     - ./japanese:/app/japanese
+  #     - ./spanish:/app/spanish
+  # converter:
+  #   build: 
+  #     dockerfile: ./VoiceBox/Dockerfile
+  #   volumes:
+  #     - ./japanese:/app/japanese
+  #     - ./spanish:/app/spanish
+  # transcriber:
+  #   build: 
+  #     dockerfile: ./Transcribe/Dockerfile
+  #   volumes:
+  #     - ./Recorder/Records:/app/Recorder/Records

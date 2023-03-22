@@ -3,7 +3,7 @@ import glob
 import time
 import os
 
-path_to_watch = "./spanish"
+path_to_watch = "../spanish"
 print('Your folder path is"', path_to_watch, '"')
 
 old = os.listdir(path_to_watch)
@@ -18,7 +18,7 @@ while True:
         extension = os.path.splitext(path_to_watch + "/" + newfile[0])[1]
         if extension == ".txt":
             # * means all if need specific format then *.csv
-            list_of_files = glob.glob('./spanish/**')
+            list_of_files = glob.glob('../spanish/**')
             latest_file = max(list_of_files, key=os.path.getctime)
             with open(f'{latest_file}', 'r') as file:
                 data = file.read()
@@ -27,7 +27,7 @@ while True:
             result = translator.translate_text(data, target_lang="JA")
             timestr = time.strftime("%Y%m%d-%H%M%S")
             print(timestr)
-            with open(f'./japanese/{timestr}.txt', 'w') as f:
+            with open(f'../japanese/{timestr}.txt', 'w',encoding='UTF-8') as f:
                 f.write(result.text)
         else:
             continue

@@ -19,13 +19,10 @@ while True:
         if extension == ".wav":
             # * means all if need specific format then *.csv
             list_of_files = glob.glob('../Recorder/Records/**')
-            latest_file = max(list_of_files, key=os.path.getctime)
-            with open(f'{newfile[0]}', 'r') as file:
-                data = file.read()
             model = whisper.load_model("base")
-            result = model.transcribe(latest_file)
+            result = model.transcribe(f"./Recorder/Records/{newfile[0]}")
             timestr = time.strftime("%Y%m%d-%H%M%S")
-            with open(f'../spanish/{timestr}.txt', 'w') as f:
+            with open(f'./spanish/{timestr}.txt', 'w') as f:
                 f.write(result["text"])
         else:
             continue
