@@ -51,7 +51,7 @@ def voicebox():
                 params_encoded = urlencode({'speaker': speaker})
                 r = requests.post(
                     f'http://localhost:50021/synthesis?{params_encoded}', json=query)
-                with open(f'./{timestr}.wav', mode='bx') as f:
+                with open(f'./output/{timestr}.wav', mode='bx') as f:
                     f.write(r.content)
             else:
                 continue
