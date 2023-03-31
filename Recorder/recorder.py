@@ -3,8 +3,9 @@ import keyboard
 import numpy as np
 import time
 from scipy.io import wavfile
-
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 class Recorder():
     def __init__(self, filename):
         self.audio_format = pyaudio.paInt16
@@ -12,8 +13,8 @@ class Recorder():
         self.sample_rate = 44100
         self.chunk = int(0.03*self.sample_rate)
         self.filename = filename
-        self.START_KEY = 's'
-        self.STOP_KEY = 'q'
+        self.START_KEY = os.getenv('START_KEY')
+        self.STOP_KEY = os.getenv('STOP_KEY')
 
 
     def record(self):
