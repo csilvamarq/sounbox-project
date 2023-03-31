@@ -31,7 +31,7 @@ def player():
                 p = pyaudio.PyAudio()
 
               # Cargar el archivo WAV
-                with wave.open(latest_file, 'rb') as wave_file:
+                with wave.open(f'./output/{newfile[0]}', 'rb') as wave_file:
                     data = wave_file.readframes(wave_file.getnframes())
                     channels = wave_file.getnchannels()
                     width = wave_file.getsampwidth()

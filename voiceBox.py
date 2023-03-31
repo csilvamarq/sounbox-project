@@ -32,7 +32,7 @@ def voicebox():
                 speaker = int('5')
                 if (text is None):
                     return json.dumps({'message': 'No text', 'status': 'BAD_REQUEST'}), 400
-                speed_scale = float('1.7')
+                speed_scale = float('1.3')
                 volume_scale = float('4.0')
                 intonation_scale = float('1.5')
                 pre_phoneme_length = float('1.0')
