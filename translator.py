@@ -2,6 +2,8 @@ import deepl
 import glob
 import time
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def translator():
     path_to_watch = "./spanish"
@@ -24,7 +26,7 @@ def translator():
                 with open(f'{latest_file}', 'r') as file:
                     data = file.read()
                 translator = deepl.Translator(
-                    "e83a265d-9575-1d5f-5b01-194082b95a70:fx")
+                   os.getenv("DEPL_KEY"))
                 result = translator.translate_text(data, target_lang="JA")
                 timestr = time.strftime("%Y%m%d-%H%M%S")
                 print(timestr)

@@ -3,7 +3,6 @@ from translator import translator
 from voiceBox import voicebox
 from player import player
 from threading import Thread
-
 t1 = Thread(target=transcriber)
 t2 = Thread(target=translator)
 t3 = Thread(target=voicebox)

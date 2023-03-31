@@ -1,13 +1,13 @@
-import pyaudio
-import wave
 import os
 import glob
+import wave
+import pyaudio
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Configuración de la reproducción de audio
 CHUNK = 1024
-
-# Inicializar el objeto PyAudio
-p = pyaudio.PyAudio()
 path_to_watch = "./output"
 print('Your folder path is"', path_to_watch, '"')
 
@@ -26,20 +26,34 @@ def player():
              # * means all if need specific format then *.csv
                 list_of_files = glob.glob('./output/**')
                 latest_file = max(list_of_files, key=os.path.getctime)
-                wf = wave.open(latest_file, 'rb')
+                out_device_index = os.getenv('AUDIO_OUTPUT_ID')
+                # Inicializar PyAudio
+                p = pyaudio.PyAudio()
 
-                stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True)
-                data = wf.readframes(CHUNK)
+              # Cargar el archivo WAV
+                with wave.open(latest_file, 'rb') as wave_file:
+                    data = wave_file.readframes(wave_file.getnframes())
+                    channels = wave_file.getnchannels()
+                    width = wave_file.getsampwidth()
+                    rate = wave_file.getframerate()
 
-                while data:
-                    stream.write(data)
-                    data = wf.readframes(CHUNK)
-                stream.stop_stream()
-                stream.close()
+            # Definir la configuración de salida de audio
+                out_stream = p.open(format=p.get_format_from_width(width),
+                    channels=channels,
+                    rate=rate,
+                    output=True,
+                    output_device_index=int(out_device_index))
+
+                # Reproducir el archivo WAV utilizando el dispositivo de audio especificado
+                out_stream.write(data)
+
+                # Cerrar el flujo de salida 
+                out_stream.stop_stream()
+                out_stream.close()
+
+                # Cerrar la instancia de PyAudio
                 p.terminate()
+                print("Terminado")
             else:
                 continue
         else:
