@@ -6,7 +6,7 @@ def main():
 
     while True:
         message = input("Escribe tu mensaje: ")
-        filename = f"{int(time.time() * 1000)}.txt"
+        filename = f'{time.strftime("%Y%m%d-%H%M%S")}.txt'
         file_path = os.path.join(folder_name, filename)
         with open(file_path, "w") as f:
             f.write(message)
