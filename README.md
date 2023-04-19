@@ -9,6 +9,8 @@ Project to syntetize your voice into anime waifu voice made with python and dock
 - Fast and easy to setup
 - Optimized to be used in low resources
 
+- NEW added feature to write messages and synthetize in real time
+
 
 ## Requirements
 
@@ -33,6 +35,14 @@ docker compose up -d
 python index.py
 
 ```
+## Recorder or Writer
+
+This project has two ways of generating text for synthesis : 
+
+- ./Writer to write manually messages and synthetize into audio
+
+- ./Recorder to record your voice and transcribe it into txt using Whisper
+
 
 
 
