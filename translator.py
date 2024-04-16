@@ -1,7 +1,8 @@
-import deepl
 import glob
 import time
+import requests
 import os
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -25,13 +26,27 @@ def translator():
                 latest_file = max(list_of_files, key=os.path.getctime)
                 with open(f'{latest_file}', 'r') as file:
                     data = file.read()
-                translator = deepl.Translator(
-                   os.getenv("DEPL_KEY"))
-                result = translator.translate_text(data, target_lang="JA")
+                    print(data)
+                url_api = 'http://localhost:5000/translate'
+                # Parámetros de la solicitud (aquí puedes ajustar según los requisitos de tu API)
+                params = {
+                    "q": data,
+                    "source": "en",
+                    "target": "ja"
+                }
+                # Realizar la solicitud POST a tu API
+                translator = requests.post(url_api, json=params)
+                result = translator.json()
+                print(result)
                 timestr = time.strftime("%Y%m%d-%H%M%S")
+                translated_text = result.get("translatedText", "")
+                # Eliminar etiquetas HTML usando BeautifulSoup
+                soup = BeautifulSoup(translated_text, "html.parser")
+                clean_text = soup.get_text()
+                print(clean_text)
                 print(timestr)
                 with open(f'./japanese/{timestr}.txt', 'w',encoding='UTF-8') as f:
-                    f.write(result.text)
+                    f.write(clean_text)
             else:
                 continue
         else:
